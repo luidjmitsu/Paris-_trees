@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "makebin.h": "c",
+        "structures.h": "c"
+    }
+}
