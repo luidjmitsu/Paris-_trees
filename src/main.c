@@ -16,7 +16,8 @@ int main(void){
     fclose(f);
 
     // IsGraphEmpty(&graph);
-    saveToBin(trees, graph);
+    writeBin(trees, graph);
+    drawMap(&graph);
 
     return 0;
 }

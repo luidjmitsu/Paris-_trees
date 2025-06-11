@@ -17,7 +17,6 @@ typedef struct graph
     char* input_file, *output_file;
     int source_node;
     int nbTrees;
-    tree_t* trees;
     double distanceLimit;
     int heightLimit;
 } graph_t;

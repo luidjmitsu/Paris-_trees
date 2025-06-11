@@ -88,7 +88,7 @@ tree_t* parse(FILE* f, graph_t* graph){
     return trees;
 }
 
-void saveToBin(tree_t* trees, graph_t graph) {
+void writeBin(tree_t* trees, graph_t graph) {
     FILE* of = fopen(graph.output_file, "wb");
     if (of == NULL) {
         fprintf(stderr, "Error opening file %s for writing\n", graph.output_file);
@@ -101,4 +101,20 @@ void saveToBin(tree_t* trees, graph_t graph) {
     fclose(of);
     printf("Data saved to binary file %s\n", graph.output_file);
     free(trees);
+}
+
+tree_t* readBin(graph_t* graph)
+{
+    tree_t* trees = malloc(sizeof(tree_t) * graph->nbTrees);
+    if (trees == NULL) {
+        fprintf(stderr, "Memory allocation failed for trees\n");
+        exit(EXIT_FAILURE);
+    }
+    FILE* f = fopen(graph->output_file, "rb");
+    for(int i = 0; i < graph->nbTrees; i++) {
+        fread(&trees[i], sizeof(tree_t), 1, f);
+    }
+    fclose(f);
+
+    return trees;
 }

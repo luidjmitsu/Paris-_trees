@@ -6,3 +6,5 @@ int get_line(FILE* f, char** line_splitted, char* buffer);
 void split_line(char** line, char** split, int n);
 void saveToBin(tree_t* trees, graph_t graph);
 double stringToDouble(char* str);
+void writeBin(tree_t* trees, graph_t graph);
+tree_t* readBin(graph_t* graph);
