@@ -21,11 +21,12 @@ void IsGraphEmpty(graph_t* graph)
 }
 
 void drawMap(graph_t* graph){
+    tree_t* trees = readBin(graph);
     if (graph == NULL || graph->nbTrees == 0) {
+        free(trees);
         fprintf(stderr, "Graph or trees are not initialized.\n");
         return;
     }
-    tree_t* trees = readBin(graph);
     tps_createWindow("Les arbres de Paris", 800, 600);
     while(tps_isRunning()) {
         tps_background(255, 255, 255);

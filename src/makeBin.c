@@ -1,5 +1,12 @@
 #include "../include/makeBin.h"
 
+int isFileExists(graph_t* graph){
+    if(access(graph->output_file, F_OK) == 0) {
+        return true;
+    }
+    return false;
+}
+
 int define_arrd(char* str){
     // string de la forme PARIS 8E ARRONDISSEMENT
     if(str == NULL || strlen(str) < 3) {
@@ -105,12 +112,17 @@ void writeBin(tree_t* trees, graph_t graph) {
 
 tree_t* readBin(graph_t* graph)
 {
+    FILE* f = fopen(graph->output_file, "rb");
+    if (f == NULL) {
+        fprintf(stderr, "Error opening file %s for writing\n", graph->output_file);
+        exit(EXIT_FAILURE);
+    }
+    fread(&graph->nbTrees, sizeof(int), 1, f);
     tree_t* trees = malloc(sizeof(tree_t) * graph->nbTrees);
     if (trees == NULL) {
         fprintf(stderr, "Memory allocation failed for trees\n");
         exit(EXIT_FAILURE);
     }
-    FILE* f = fopen(graph->output_file, "rb");
     for(int i = 0; i < graph->nbTrees; i++) {
         fread(&trees[i], sizeof(tree_t), 1, f);
     }

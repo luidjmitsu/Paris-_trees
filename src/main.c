@@ -5,18 +5,18 @@
 int main(void){
     graph_t graph;
     initGraph(&graph);
-    // IsGraphEmpty(&graph);
+    
+    if(!isFileExists(&graph)) {
+        FILE* f = fopen(graph.input_file, "r");
+        if (f == NULL) {
+            fprintf(stderr, "Error opening file %s\n", graph.input_file);
+            return 1;
+        }
+        tree_t* trees = parse(f, &graph);
+        fclose(f);
 
-    FILE* f = fopen(graph.input_file, "r");
-    if (f == NULL) {
-        fprintf(stderr, "Error opening file %s\n", graph.input_file);
-        return 1;
+        writeBin(trees, graph);
     }
-    tree_t* trees = parse(f, &graph);
-    fclose(f);
-
-    // IsGraphEmpty(&graph);
-    writeBin(trees, graph);
     drawMap(&graph);
 
     return 0;
