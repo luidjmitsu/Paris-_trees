@@ -110,8 +110,21 @@ void writeBin(tree_t* trees, graph_t graph) {
     free(trees);
 }
 
+void minMax(tree_t tree, coord_t* min, coord_t* max){
+    if(tree.position.x > max->x) {
+        max->x = tree.position.x;
+    } else if(tree.position.x < min->x){
+        min->x = tree.position.x;
+    } else if (tree.position.y > max->y) {
+        max->y = tree.position.y;
+    } else if(tree.position.y < min->y){
+        min->y = tree.position.y;
+    } 
+}
+
 tree_t* readBin(graph_t* graph)
 {
+    coord_t min = {INFINITY, INFINITY}, max = {0,0};
     FILE* f = fopen(graph->output_file, "rb");
     if (f == NULL) {
         fprintf(stderr, "Error opening file %s for writing\n", graph->output_file);
@@ -125,8 +138,12 @@ tree_t* readBin(graph_t* graph)
     }
     for(int i = 0; i < graph->nbTrees; i++) {
         fread(&trees[i], sizeof(tree_t), 1, f);
+        addCoord(&graph->graphScale.moyenne, &trees[i].position);
+        minMax(trees[i], &min, &max);
     }
     fclose(f);
-
+    graph->graphScale.facteur.x = graph->graphScale.lenght / (max.x - min.x);
+    graph->graphScale.facteur.y = graph->graphScale.width / (max.y - min.y);
+    multiplyCoord(&graph->graphScale.moyenne, 1.0/graph->nbTrees);
     return trees;
 }

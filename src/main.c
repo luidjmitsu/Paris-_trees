@@ -17,7 +17,7 @@ int main(void){
 
         writeBin(trees, graph);
     }
-    drawMap(&graph);
+    drawMap(&graph, 0.9);
 
     return 0;
 }

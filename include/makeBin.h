@@ -10,3 +10,5 @@ void saveToBin(tree_t* trees, graph_t graph);
 double stringToDouble(char* str);
 void writeBin(tree_t* trees, graph_t graph);
 tree_t* readBin(graph_t* graph);
+void minMax(tree_t tree, coord_t* min, coord_t* max);
+
