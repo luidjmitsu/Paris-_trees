@@ -1,5 +1,8 @@
 #pragma once 
 
+#define INPUT_FILE "les-arbres.csv"
+#define OUTPUT_FILE "les-arbres.bin"
+
 #define SIZEOFBUFFER 500
 #define SIZEOFINT 4
 #define SIZEOFDOUBLE 8

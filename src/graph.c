@@ -3,8 +3,8 @@
 
 void initGraph(graph_t* graph)
 {
-    graph->input_file = "les-arbres.csv";
-    graph->output_file = "les-arbres.bin";
+    graph->input_file = INPUT_FILE;
+    graph->output_file = OUTPUT_FILE;
     graph->source_node = 0;
     graph->nbTrees = 0;
     graph->distanceLimit = (double)MAXINT;
@@ -25,7 +25,7 @@ void drawMap(graph_t* graph){
         fprintf(stderr, "Graph or trees are not initialized.\n");
         return;
     }
-    tree_t* trees = readBin(*graph);
+    tree_t* trees = readBin(graph);
     tps_createWindow("Les arbres de Paris", 800, 600);
     while(tps_isRunning()) {
         tps_background(255, 255, 255);
